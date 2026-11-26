@@ -1,0 +1,79 @@
+{
+  "source": "https://arxiv.org/html/2506.15635v2",
+  "table": "Table 4",
+  "model_size_sources": [
+    "https://arxiv.org/html/2506.15635v2#A4.SS2",
+    "https://huggingface.co/yali30/findingdory-qwen2.5-VL-3B-finetuned"
+  ],
+  "checked_date": "2026-11-26",
+  "metric": "HL-SR (%)",
+  "baselines": [
+    {
+      "model": "Text Agent",
+      "setting": "官方文本摘要基线",
+      "hlsr_percent": 9.45,
+      "tasks": null,
+      "successes": null
+    },
+    {
+      "model": "Gemma3-12B",
+      "setting": "原版模型",
+      "hlsr_percent": 13.04,
+      "tasks": null,
+      "successes": null
+    },
+    {
+      "model": "Qwen2.5-VL-7B-Instruct",
+      "setting": "原版模型",
+      "hlsr_percent": 15.14,
+      "tasks": null,
+      "successes": null
+    },
+    {
+      "model": "GLM-4.1V-Thinking",
+      "setting": "原版模型",
+      "hlsr_percent": 23.49,
+      "tasks": null,
+      "successes": null
+    },
+    {
+      "model": "Gemini-2.0-Flash",
+      "setting": "原版模型",
+      "hlsr_percent": 25.73,
+      "tasks": null,
+      "successes": null
+    },
+    {
+      "model": "GPT-4o",
+      "setting": "原版模型",
+      "hlsr_percent": 27.33,
+      "tasks": null,
+      "successes": null
+    },
+    {
+      "model": "Qwen SFT（3B）",
+      "setting": "官方任务微调",
+      "hlsr_percent": 52.44,
+      "tasks": null,
+      "successes": null
+    }
+  ],
+  "qwen7b_category_hlsr_percent": {
+    "Object Recall": 15.5,
+    "Interaction": 35.0,
+    "Conditional Interaction": 15.22,
+    "Object Attributes": 17.62,
+    "Spatial Relationship": 4.58,
+    "Room Visitation": 31.83,
+    "Interaction Order": 9.83,
+    "Time-Based": 40.0,
+    "Duration Tracking": 12.76,
+    "Unordered Revisitation": 1.83,
+    "Ordered Revisitation": 1.33
+  },
+  "ours_hlsr_percent": 42.58438458915786,
+  "ours_minus_qwen7b_percentage_points": 27.444384589157856,
+  "ours_divided_by_qwen7b": 2.812707040234997,
+  "comparison_kind": "published baselines vs local archived evaluation; not a matched ablation",
+  "rounding": "display one decimal; compute differences before rounding"
+}
