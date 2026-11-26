@@ -1,0 +1,107 @@
+{
+  "metric": "official FindingDory High-Level Success Rate (HL-SR)",
+  "official_simulator_validation_episodes": 100,
+  "model_checkpoint": "models/nb_recall_answer_lora_stage_c/checkpoint-3100",
+  "adapter_sha256": "d42e56d365fd52303c2fb133139498bd2d5aa8de9cfd8cdb57fa61e934adb439",
+  "overall": {
+    "tasks": 5866,
+    "successes": 2498,
+    "hlsr": 0.4258438458915786
+  },
+  "high_level_categories": {
+    "Multi-Goal Tasks": {
+      "tasks": 894,
+      "successes": 307,
+      "hlsr": 0.3434004474272931
+    },
+    "Single-Goal Spatial Tasks": {
+      "tasks": 2943,
+      "successes": 1250,
+      "hlsr": 0.42473666326877335
+    },
+    "Single-Goal Temporal Tasks": {
+      "tasks": 2029,
+      "successes": 941,
+      "hlsr": 0.4637752587481518
+    }
+  },
+  "low_level_categories": {
+    "Conditional Interaction": {
+      "tasks": 684,
+      "successes": 287,
+      "hlsr": 0.4195906432748538
+    },
+    "Duration Tracking": {
+      "tasks": 299,
+      "successes": 51,
+      "hlsr": 0.1705685618729097
+    },
+    "Interaction": {
+      "tasks": 600,
+      "successes": 448,
+      "hlsr": 0.7466666666666667
+    },
+    "Interaction Order": {
+      "tasks": 1530,
+      "successes": 811,
+      "hlsr": 0.5300653594771242
+    },
+    "Object Attributes": {
+      "tasks": 491,
+      "successes": 148,
+      "hlsr": 0.3014256619144603
+    },
+    "Object Recall": {
+      "tasks": 200,
+      "successes": 86,
+      "hlsr": 0.43
+    },
+    "Ordered Revisitation": {
+      "tasks": 300,
+      "successes": 104,
+      "hlsr": 0.3466666666666667
+    },
+    "Room Visitation": {
+      "tasks": 488,
+      "successes": 190,
+      "hlsr": 0.38934426229508196
+    },
+    "Spatial Relationship": {
+      "tasks": 480,
+      "successes": 91,
+      "hlsr": 0.18958333333333333
+    },
+    "Time-Based": {
+      "tasks": 200,
+      "successes": 79,
+      "hlsr": 0.395
+    },
+    "Unordered Revisitation": {
+      "tasks": 594,
+      "successes": 203,
+      "hlsr": 0.34175084175084175
+    }
+  },
+  "offline_video_rows_without_simulator_instruction": [
+    "ep_18:53",
+    "ep_39:50",
+    "ep_53:28",
+    "ep_62:19",
+    "ep_90:49",
+    "ep_97:33"
+  ],
+  "official_runner_skipped_questions": [
+    "ep_17:52",
+    "ep_35:53",
+    "ep_59:53",
+    "ep_66:53"
+  ],
+  "alignment": {
+    "first_frame_mae_max": 5.031728535353535,
+    "last_frame_mae_max": 5.132117424242424,
+    "all_episodes_verified": true
+  },
+  "online_leaderboard_submission": false,
+  "public_validation_tuned": true,
+  "answer_assisted_memory_used": false
+}

@@ -1,0 +1,3 @@
+0c8af9a434143e774cf28c4d2ccd4843b9846cfd
+
+Patched source copied in vendor/; git metadata and credentials excluded.

@@ -1,0 +1,124 @@
+{
+  "method": "NB-Recall append-only FindingDory dual-LoRA pipeline",
+  "base_model": "models/Qwen2.5-VL-3B-Instruct",
+  "official_sft_weights_used": false,
+  "adapter_architecture": {
+    "shared_adapter": false,
+    "memory_builder_role": "observe frames and append immutable memory nodes/edges",
+    "answer_role": "retrieve memory, choose answer/re-observe/ignore, and return frame indices",
+    "memory_builder_initialized_from": "base_model",
+    "answer_initialized_from": "base_model",
+    "answer_must_not_resume_from_memory_builder": true,
+    "inference_activation": "one_role_adapter_at_a_time",
+    "merge_adapters": false
+  },
+  "memory_invariants": {
+    "append_only": true,
+    "allow_delete": false,
+    "allow_overwrite": false,
+    "allow_merge": false,
+    "state_change_relation": "version-of"
+  },
+  "stage_a": {
+    "role": "memory_builder",
+    "adapter": "models/nb_recall_unified_lora_stage_a/adapter",
+    "frozen_after_training": true,
+    "audit_split": "data/stage_a_append_only/audit.jsonl",
+    "autoregressive_audit": true
+  },
+  "stage_b": {
+    "gpu_shards": [0, 1, 2],
+    "world_size": 3,
+    "episode_assignment": "episode_index_mod_world_size",
+    "batched_episode_streams_per_gpu": 4,
+    "cache_semantic_embeddings": true,
+    "semantic_cache_dtype": "float16",
+    "retrieval_top_k": 8,
+    "trust_features": [
+      "semantic_match",
+      "provenance_freshness",
+      "version_consistency",
+      "conflict_degree",
+      "support_coverage",
+      "source_reliability"
+    ],
+    "target_answer_error": 0.1,
+    "calibration_confidence": 0.95,
+    "test_data_used_for_calibration": false
+  },
+  "stage_c": {
+    "role": "answer",
+    "adapter_output": "models/nb_recall_answer_lora_stage_c/adapter",
+    "initialize_fresh_from_base_model": true,
+    "resume_same_lora_from_stage_a": false,
+    "forbidden_resume_adapter": "models/nb_recall_unified_lora_stage_a/adapter",
+    "memory_builder_frozen": true,
+    "official_subsampled_train_questions": 79218,
+    "pilot_videos": 3,
+    "pilot_memory_parallel_pool_videos": 3,
+    "memory_episode_streams_per_gpu": 64,
+    "memory_backend": "vllm_async",
+    "memory_cuda_graphs": true,
+    "memory_transport_format": "original_full_schema",
+    "compact_prompt_probe_adopted": false,
+    "merge_frozen_builder_into_inference_copy": true,
+    "answer_adapter_is_never_merged_with_builder": true,
+    "pilot_fit_videos": 2,
+    "pilot_holdout_videos": 1,
+    "memory_source": "data/stage_c_video_memory/train",
+    "video_memory_generator": "scripts/generate_stage_c_video_memory.py",
+    "answer_data_builder": "scripts/build_stage_c_answer_data.py",
+    "answer_trainer": "scripts/train_stage_c_answer_lora.py",
+    "pipeline_launcher": "scripts/run_stage_c_pipeline.sh",
+    "answer_training_learning_rate": 0.00005,
+    "reader_gate_tasks_separated": true,
+    "reader_sampling_fraction": 0.7,
+    "gate_sampling_fraction": 0.3,
+    "gate_classes_balanced_within_gate_task": true,
+    "runtime_gate_implemented_by_controller": true,
+    "latest_smoke_adapter": "models/nb_recall_answer_lora_stage_c_reader_gate_fix/adapter",
+    "latest_smoke_report": "reports/stage_c_reader_gate_fix_comparison.json",
+    "latest_smoke_all_groups_hit": 6,
+    "latest_smoke_questions": 24,
+    "answer_supervision": "one valid representative frame per official destination group",
+    "lora_rank": 64,
+    "lora_alpha": 128,
+    "lora_dropout": 0.05,
+    "evidence_frame_budget": 4,
+    "backward_smoke_required": true,
+    "official_video_alignment_required": true,
+    "physical_reobservation_training_implemented": false,
+    "offline_reobservation": "revisit historical evidence frames",
+    "tau_hi_has_conformal_risk_guarantee": false,
+    "initial_epochs": 1,
+    "maximum_epochs": 2,
+    "answer_memory_fraction": 1.0,
+    "stage_a_replay_fraction": 0.0,
+    "audit_after_initial_epoch": true,
+    "continue_second_epoch_only_if": {
+      "answer_format_rate_below": 0.995,
+      "or_recent_hl_sr_gain_at_least": 0.005
+    },
+    "answer_requirements": {
+      "answer_format_rate_at_least": 0.995,
+      "uses_retrieved_memory": true,
+      "supports_reobserve_decision": true
+    }
+  },
+  "stage_d": {
+    "smoke_first": true,
+    "smoke_episodes": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    "paired_no_memory_baseline": true,
+    "full_eval_requires": {
+      "runtime_failures": 0,
+      "answer_format_rate": 1.0,
+      "high_level_success_count_strictly_above_paired_baseline": true
+    },
+    "full_eval_gpu_shards": {
+      "0": [1, 34],
+      "1": [35, 67],
+      "2": [68, 100]
+    },
+    "resume_completed_episodes": true
+  }
+}

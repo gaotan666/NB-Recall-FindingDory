@@ -1,0 +1,27 @@
+# Runtime assets and credentials stay outside Git.
+/envs/
+/models/
+/data/
+/logs/
+/reports/
+/runs/
+/.venv/
+/.env
+/.env.*
+*.safetensors
+*.ckpt
+*.pth
+*.pt
+*.bin
+*.npy
+*.npz
+*.parquet
+*.mp4
+*.pyc
+__pycache__/
+.pytest_cache/
+wandb/
+REPRODUCTION_WORKSPACE.json
+credentials*
+*.pem
+*.key

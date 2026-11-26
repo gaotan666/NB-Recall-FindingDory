@@ -1,0 +1,10 @@
+README.md
+setup.py
+findingdory/run_findingdory_eval.py
+findingdory/run_imagenav.py
+findingdory/utils.py
+findingdory.egg-info/PKG-INFO
+findingdory.egg-info/SOURCES.txt
+findingdory.egg-info/dependency_links.txt
+findingdory.egg-info/requires.txt
+findingdory.egg-info/top_level.txt

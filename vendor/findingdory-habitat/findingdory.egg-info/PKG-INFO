@@ -1,0 +1,25 @@
+Metadata-Version: 2.4
+Name: findingdory
+Version: 0.1
+Requires-Dist: pandas
+Requires-Dist: rtree
+Requires-Dist: wandb
+Requires-Dist: ipython
+Requires-Dist: ipdb
+Requires-Dist: json5
+Provides-Extra: vlm-baseline
+Requires-Dist: google-generativeai==0.8.3; extra == "vlm-baseline"
+Requires-Dist: protobuf==3.20.2; extra == "vlm-baseline"
+Requires-Dist: qwen-vl-utils; extra == "vlm-baseline"
+Requires-Dist: openai; extra == "vlm-baseline"
+Requires-Dist: transformers; extra == "vlm-baseline"
+Requires-Dist: accelerate; extra == "vlm-baseline"
+Requires-Dist: flash-attn @ git+https://github.com/Dao-AILab/flash-attention.git ; extra == "vlm-baseline"
+Provides-Extra: mapping-baseline
+Requires-Dist: torch_geometric; extra == "mapping-baseline"
+Requires-Dist: open3d; extra == "mapping-baseline"
+Requires-Dist: scikit-image; extra == "mapping-baseline"
+Requires-Dist: sophuspy; extra == "mapping-baseline"
+Requires-Dist: scikit-fmm; extra == "mapping-baseline"
+Dynamic: provides-extra
+Dynamic: requires-dist
